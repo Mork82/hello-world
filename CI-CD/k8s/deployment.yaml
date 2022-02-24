@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: formapp-container
-          image: mrmork/webapp:v1.0
+          image: mrmork/webapp:1.0.0
 
   replicas: 2
   selector:
