@@ -23,7 +23,7 @@
           path: /home/jose/
           dockerfile: Dockerfile
 
-    - name: "Push image builded"
+    - name: "Push image built"
       docker_image:
         name: webapp
         tag: 1.0.0
