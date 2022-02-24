@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: webapp
+  labels:
+    app: webapp-deployment
+    type: front-end
+spec:
+  template: 
+    metadata:
+      name: front-pod
+      labels:
+        app: formapp
+        type: front-end      
+    spec:
+      containers:
+        - name: formapp-container
+          image: nginx
+
+  replicas: 2
+  selector:
+    matchLabels:
+      app: formapp
