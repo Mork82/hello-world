@@ -1,7 +1,6 @@
 - name: docker-playbook
   hosts: localhost
   tasks:
-
     - name: "Login to Docker Hub"
       docker_login:
         username: "mrmork"
@@ -21,13 +20,13 @@
         tag: v1.0
         source: build
       build:
-         path: /home/jose/
-         dockerfile: Dockerfile
+        path: /home/jose/
+        dockerfile: Dockerfile
 
     - name: "Push image builded"
       docker_image:
         name: webapp
-        tag: v1.0
+        tag: 1.0.0, latest
         repository: mrmork/webapp
         push: yes
         source: local
