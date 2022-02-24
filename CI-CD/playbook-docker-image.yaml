@@ -1,0 +1,33 @@
+- name: docker-playbook
+  hosts: localhost
+  tasks:
+
+    - name: "Login to Docker Hub"
+      docker_login:
+        username: "mrmork"
+        password: "CroketAJamon"
+
+    - name: "Install docker"
+      apt:
+        name: python3-docker
+        update_cache: yes
+        cache_valid_time: 3600
+        state: present
+        become: true
+
+    - name: "Build image"
+      docker_image:
+        name: webapp
+        tag: v1.0
+        source: build
+      build:
+         path: /home/jose/
+         dockerfile: Dockerfile
+
+    - name: "Push image builded"
+      docker_image:
+        name: webapp
+        tag: v1.0
+        repository: mrmork/webapp
+        push: yes
+        source: local
