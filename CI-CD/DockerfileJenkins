@@ -1,0 +1,29 @@
+FROM jenkinsci/blueocean
+
+USER root
+RUN apk update && apk add wget 
+RUN apk add zip && apk add tree && apk add sshpass
+RUN  wget --no-verbose -O /tmp/apache-maven-3.8.4-bin.tar.gz https://downloads.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz  
+
+RUN tar xzf /tmp/apache-maven-3.8.4-bin.tar.gz -C /opt/
+RUN ln -s  /opt/apache-maven-3.8.4 /opt/maven
+RUN ln -s /opt/maven/bin/mvn /usr/local/bin
+RUN rm /tmp/apache-maven-3.8.4-bin.tar.gz
+RUN chown jenkins:jenkins /opt/maven;
+VOLUME [ "/data" ]
+
+ENV MAVEN_HOME=/opt/maven
+
+
+USER jenkins
+
+
+# docker run --name jenkins -d -p8081:8080 jenkins-img 
+# docker exec -it f4 sh -c "cat /var/jenkins_home/secrets/initialAdminPassword"
+# docker exec -it a73 sh -c "ssh-keygen && cat /var/jenkins_home/.ssh/id_rsa.pub" 
+
+# dbc0aad777764ea3bec93db4ae4fbbfd
+
+docker create volume jenkins-vol
+
+docker run --name jenkins -d -v jenkins-vol:/var/jenkins_home -p8080:8080 jenkins-img
